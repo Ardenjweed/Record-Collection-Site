@@ -1,8 +1,33 @@
-header{
-    display: flex;
-    padding-inline: 16px;
-    padding-block: 8px;
-    background-color: #333;
-    color: white;
-    justify-content: end;
+header {
+  padding-inline: 16px;
+  padding-block: 8px;
+  background-color: #525252;
+  color: white;
 }
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.controls-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.controls-right {
+  margin-left: auto;
+  margin-right: 2em;
+}
+
+/* .mat-mdc-select-panel {
+  min-width: fit-content !important;
+} */

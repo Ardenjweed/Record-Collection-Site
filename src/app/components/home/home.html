@@ -1,0 +1,5 @@
+<div class="album-grid" [style.--min-col-size]="colSize()">
+  @for (album of albumService.filtered(); track album.id) {
+    <app-album-card [album]="album" />
+  }
+</div>

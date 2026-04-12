@@ -1,5 +1,43 @@
 <header>
-    <nav>
-        <h1>Test</h1>
-    </nav>
+  <nav>
+    <h1>My Record Collection</h1>
+
+    <div class="controls">
+      <div class="controls-left">
+        <mat-select placeholder="Sort by" (selectionChange)="albumService.sortField.set($event.value)">
+          <mat-option value="title">Title</mat-option>
+          <mat-option value="artist">Artist</mat-option>
+          <mat-option value="year">Year</mat-option>
+          <mat-option value="genre">Genre</mat-option>
+        </mat-select>
+
+        <mat-select placeholder="Filter by genre" (selectionChange)="albumService.filterGenre.set($event.value)">
+          <mat-option value="">All</mat-option>
+          @for (g of albumService.genres; track g) {
+            <mat-option [value]="g">{{ g }}</mat-option>
+          }
+        </mat-select>
+
+        <mat-checkbox
+          [checked]="albumService.showCompilations()"
+          (change)="albumService.showCompilations.set($event.checked)">
+          Compilations
+        </mat-checkbox>
+
+        <mat-checkbox
+          [checked]="albumService.showGifted()"
+          (change)="albumService.showGifted.set($event.checked)">
+          Gifted
+        </mat-checkbox>
+      </div>
+
+      <div class="controls-right">
+        <mat-select placeholder="Display" (selectionChange)="albumService.displaySize.set($event.value)">
+          <mat-option value="large">Large</mat-option>
+          <mat-option value="medium">Medium</mat-option>
+          <mat-option value="small">Small</mat-option>
+        </mat-select>
+      </div>
+    </div>
+  </nav>
 </header>

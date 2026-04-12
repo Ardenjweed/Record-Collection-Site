@@ -1,1 +1,8 @@
-<p>album-card works!</p>
+<mat-card>
+  <img mat-card-image [src]="album().coverUrl" [alt]="album().title">
+  <!-- <mat-card-content>
+    <h3>{{ album().title }}</h3>
+    <p>{{ album().artist }} · {{ album().year }}</p>
+    <p><em>{{ album().genre }}</em></p>
+  </mat-card-content> -->
+</mat-card>

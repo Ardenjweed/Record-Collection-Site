@@ -1,9 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AlbumService } from '../../services/album';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  standalone: true,
+  imports: [MatSelectModule, MatCheckboxModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header {}
+export class Header {
+  albumService = inject(AlbumService);
+}

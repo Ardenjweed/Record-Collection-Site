@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-
-//Displays Individual Albums
-// HTML can be as simple as <img [src]="album.coverUrl" [alt]="album.title" class="img-fluid">
+import { Component, input } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { Album } from '../../models/album';
 
 @Component({
   selector: 'app-album-card',
-  imports: [],
+  standalone: true,
+  imports: [MatCardModule],
   templateUrl: './album-card.html',
   styleUrl: './album-card.css',
 })
-export class AlbumCard {}
+export class AlbumCard {
+  album = input.required<Album>();
+}
