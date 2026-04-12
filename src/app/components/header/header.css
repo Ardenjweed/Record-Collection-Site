@@ -28,6 +28,17 @@ nav {
   margin-right: 2em;
 }
 
-/* .mat-mdc-select-panel {
-  min-width: fit-content !important;
-} */
+.sort-order-btn {
+  background-color: #6e6e6e;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.sort-order-btn:hover {
+  background-color: #858585;
+}

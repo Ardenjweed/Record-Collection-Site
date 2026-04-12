@@ -7,9 +7,14 @@
         <mat-select placeholder="Sort by" (selectionChange)="albumService.sortField.set($event.value)">
           <mat-option value="title">Title</mat-option>
           <mat-option value="artist">Artist</mat-option>
-          <mat-option value="year">Year</mat-option>
+          <mat-option value="year">Date</mat-option>
           <mat-option value="genre">Genre</mat-option>
+          <mat-option value="color">Color</mat-option>
         </mat-select>
+
+        <button class="sort-order-btn" (click)="albumService.sortOrder.set(albumService.sortOrder() === 'desc' ? 'asc' : 'desc')">
+          {{ albumService.sortOrder() === 'desc' ? 'Desc' : 'Asc' }}
+        </button>
 
         <mat-select placeholder="Filter by genre" (selectionChange)="albumService.filterGenre.set($event.value)">
           <mat-option value="">All</mat-option>
