@@ -29,6 +29,12 @@
           (change)="albumService.showGifted.set($event.checked)">
           Gifted
         </mat-checkbox>
+
+        <mat-checkbox
+          [checked]="albumService.showSoundtracks()"
+          (change)="albumService.showSoundtracks.set($event.checked)">
+          Soundtracks
+        </mat-checkbox>
       </div>
 
       <div class="controls-right">

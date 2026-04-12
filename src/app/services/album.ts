@@ -14,39 +14,36 @@ export class AlbumService {
   readonly showCompilations = signal<boolean>(false);
   readonly showGifted = signal<boolean>(true);
 
-  readonly filtered = computed(() => {
-    let list = [...this.albums];
+  readonly showSoundtracks = signal<boolean>(true);
 
-    if (this.filterGenre()) {
-      list = list.filter(a => a.genre === this.filterGenre());
-    }
+readonly filtered = computed(() => {
+  let list = [...this.albums];
 
-    if (!this.showCompilations()) {
-      list = list.filter(a => !a.compilation);
-    }
+  if (this.filterGenre()) {
+    list = list.filter(a => a.genre === this.filterGenre());
+  }
 
-    if (!this.showGifted()) {
-      list = list.filter(a => !a.gift);
-    }
+  if (!this.showCompilations()) {
+    list = list.filter(a => !a.compilation);
+  }
 
-    const field = this.sortField();
+  if (!this.showGifted()) {
+    list = list.filter(a => !a.gift);
+  }
 
-    return list.sort((a, b) => {
-      const aVal = a[field] ?? '';
-      const bVal = b[field] ?? '';
+  if (!this.showSoundtracks()) {
+    list = list.filter(a => !a.soundtrack);
+  }
 
-      if (aVal !== bVal) {
-        return aVal > bVal ? 1 : -1;
-      }
+  const field = this.sortField();
 
-      // Secondary sort by artist, only when primary sort is not already artist
-      if (field !== 'artist') {
-        return a.artist.localeCompare(b.artist);
-      }
+  return list.sort((a, b) => {
+    const aVal = a[field] ?? '';
+    const bVal = b[field] ?? '';
 
-      return 0;
-    });
+    return aVal > bVal ? 1 : -1;
   });
+});
 
   get genres(): string[] {
     return [...new Set(this.albums.map(a => a.genre))];

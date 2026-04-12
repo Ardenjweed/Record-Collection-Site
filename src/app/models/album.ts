@@ -7,6 +7,7 @@ export interface Album {
   coverUrl: string;
   compilation: boolean;
   gift: boolean;
+  soundtrack: boolean;
   label?: string;
   notes?: string;
 }
