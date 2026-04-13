@@ -35,12 +35,14 @@ function colorSortKey(hex: string): number {
   const isAchromatic = s < ACHROMATIC_THRESHOLD;
 
   if (isAchromatic) {
-    // Group all achromatic colors after chromatic ones, sorted light to dark
-    return 10000 + (1 - l) * 100;
+    // We want white (high L) to have a smaller key than black (low L)
+    // so that in a list, white comes first, then grey, then black.
+    // 10000 is our "offset" to push these after all chromatic colors.
+    return 10000 + (1 - l); 
   }
 
-  // Chromatic: sort by hue, use saturation and lightness as tiebreakers
-  return h + (1 - s) * 0.5 + (1 - l) * 0.1;
+  // Chromatic: sort by hue (0-360)
+  return h;
 }
 
 @Injectable({ providedIn: 'root' })
