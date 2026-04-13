@@ -1,5 +1,13 @@
 <div class="album-grid" [style.--min-col-size]="colSize()">
   @for (album of albumService.filtered(); track album.id) {
-    <app-album-card [album]="album" />
+    <app-album-card [album]="album" (albumClicked)="selectedAlbum.set($event)" />
   }
 </div>
+
+@if (selectedAlbum()) {
+  <div class="overlay" (click)="selectedAlbum.set(null)">
+    <div class="overlay-content" (click)="$event.stopPropagation()">
+      <img [src]="selectedAlbum()!.coverUrl" [alt]="selectedAlbum()!.title">
+    </div>
+  </div>
+}

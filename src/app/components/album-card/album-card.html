@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card (click)="albumClicked.emit(album())">
   <img mat-card-image [src]="album().coverUrl" [alt]="album().title">
   <!-- <mat-card-content>
     <h3>{{ album().title }}</h3>

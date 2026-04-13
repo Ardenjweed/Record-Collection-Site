@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Album } from '../../models/album';
 
@@ -11,4 +11,5 @@ import { Album } from '../../models/album';
 })
 export class AlbumCard {
   album = input.required<Album>();
+  albumClicked = output<Album>();
 }
