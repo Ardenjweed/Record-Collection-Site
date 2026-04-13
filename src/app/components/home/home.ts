@@ -13,6 +13,17 @@ import { Album } from '../../models/album';
 export class Home {
   albumService = inject(AlbumService);
   selectedAlbum = signal<Album | null>(null);
+  showDetails = signal<boolean>(false);
+
+  openAlbum(album: Album) {
+    this.selectedAlbum.set(album);
+    this.showDetails.set(false);
+  }
+
+  closeOverlay() {
+    this.selectedAlbum.set(null);
+    this.showDetails.set(false);
+  }
 
   colSize = computed(() => {
     const sizes = { large: '350px', medium: '250px', small: '150px' };

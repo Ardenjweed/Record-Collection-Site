@@ -2,10 +2,10 @@ import type { Album } from '../models/album';
 
 export const ALBUMS: Album[] = [
   { id: 1, title: 'Off The Wall', artist: 'Michael Jackson', genre: 'R&B', year: 1979, month: 8, day: 10, coverUrl: 'michael_jackson-off_the_wall.jpg', color: '#94664c', compilation: false, gift: false, soundtrack: false },
-  { id: 2, title: 'Discovery', artist: 'Daft Punk', genre: 'Electronic', year: 2001, month: 3, day: 12, coverUrl: 'discovery.png', color: '#000', compilation: false, gift: false, soundtrack: false },
+  { id: 2, title: 'Discovery', artist: 'Daft Punk', genre: 'Electronic', year: 2001, month: 3, day: 12, coverUrl: 'daft_punk-discovery.jpg', color: '#000', compilation: false, gift: false, soundtrack: false },
   { id: 3, title: 'Casiopea', artist: 'Casiopea', genre: 'Jazz', year: 1979, month: 5, day: 25, coverUrl: 'casiopea-casiopea.jpg', color: '#1c2c1c', compilation: false, gift: false, soundtrack: false },
   { id: 4, title: 'Nevermind', artist: 'Nirvana', genre: 'Rock', year: 1991, month: 9, day: 24, coverUrl: 'nirvana-nevermind.jpg', color: '#127bad', compilation: false, gift: false, soundtrack: false },
-  { id: 5, title: 'Select Ambient Works 85-92', artist: 'Aphex Twin', genre: 'Electronic', year: 1992, month: 11, day: 9, coverUrl: 'aphex_twins-selected_ambient_works_85-92.png', color: '#ffffff', compilation: false, gift: false, soundtrack: false },
+  { id: 5, title: 'Select Ambient Works 85-92', artist: 'Aphex Twin', genre: 'Electronic', year: 1992, month: 11, day: 9, coverUrl: 'aphex_twins-selected_ambient_works_85-92.jpg', color: '#ffffff', compilation: false, gift: false, soundtrack: false },
   { id: 6, title: 'Neon Genesis Evangelion OST', artist: 'Shirou Sagisu', genre: 'Anime OST', year: 1995, month: 10, day: 4, coverUrl: 'shirou_sagisu-neon_genesis_evangelion_ost.jpg', color: '#000', compilation: false, gift: false, soundtrack: true },
   { id: 7, title: 'God of War: Ragnarok OST', artist: 'Bear McCreary', genre: 'Video Game OST', year: 2022, month: 11, day: 9, coverUrl: 'bear_mccreary-god_of_war_ragnarok_ost.jpg', color: '#e2ded8', compilation: false, gift: false, soundtrack: true },
   { id: 8, title: 'Attack on Titan OST', artist: 'Hiroyuki Sawano', genre: 'Anime OST', year: 2013, month: 4, day: 7, coverUrl: 'hiroyuki_sawano-attack_on_titan_ost.jpg', color: '#c0b3a2', compilation: false, gift: false, soundtrack: true },
@@ -18,8 +18,8 @@ export const ALBUMS: Album[] = [
   { id: 15, title: 'Chet Baker Sings', artist: 'Chet Baker', genre: 'Jazz', year: 1956, month: 1, day: 1, coverUrl: 'chet_baker-chet_baker_sings.jpg', color: '#e99700', compilation: false, gift: false, soundtrack: false },
   { id: 16, title: 'Five Leaves Left', artist: 'Nick Drake', genre: 'Rock', year: 1969, month: 9, day: 1, coverUrl: 'nick_drake-five_leaves_left.jpg', color: '#117a5b', compilation: false, gift: false, soundtrack: false },
   { id: 17, title: 'Some Great Reward', artist: 'Depeche Mode', genre: 'Pop', year: 1984, month: 9, day: 24, coverUrl: 'depeche_mode-some_great_reward.png', color: '#547288', compilation: false, gift: true, soundtrack: false },
-  { id: 18, title: 'Violator', artist: 'Depeche Mode', genre: 'Pop', year: 1990, month: 3, day: 19, coverUrl: 'depeche_mode-violator.png', color: '#000', compilation: false, gift: false, soundtrack: false },
-  { id: 19, title: 'To Pimp a Butterfly', artist: 'Kendrick Lamar', genre: 'Hip-Hop', year: 2015, month: 3, day: 15, coverUrl: 'kendrick_lamar-to_pimp_a_butterfly.png', color: '#b3b0b3', compilation: false, gift: false, soundtrack: false },
+  { id: 18, title: 'Violator', artist: 'Depeche Mode', genre: 'Pop', year: 1990, month: 3, day: 19, coverUrl: 'depeche_mode-violator.jpg', color: '#000', compilation: false, gift: false, soundtrack: false },
+  { id: 19, title: 'To Pimp a Butterfly', artist: 'Kendrick Lamar', genre: 'Hip-Hop', year: 2015, month: 3, day: 15, coverUrl: 'kendrick_lamar-to_pimp_a_butterfly.jpg', color: '#b3b0b3', compilation: false, gift: false, soundtrack: false },
   { id: 20, title: 'Fleetwood Mac Greatest Hits', artist: 'Fleetwood Mac', genre: 'Rock', year: 1988, month: 11, day: 14, coverUrl: 'fleetwood_mac-greatest_hits.jpg', color: '#31341d', compilation: true, gift: true, soundtrack: false },
   { id: 21, title: 'The Queen Is Dead', artist: 'The Smiths', genre: 'Rock', year: 1986, month: 6, day: 16, coverUrl: 'the_smiths-the_queen_is_dead.jpg', color: '#223429', compilation: false, gift: false, soundtrack: false },
   { id: 22, title: 'Elden Ring OST', artist: 'From Software', genre: 'Video Game OST', year: 2022, month: 2, day: 25, coverUrl: 'from_software-elden_ring_ost.jpg', color: '#162e27', compilation: false, gift: false, soundtrack: true },

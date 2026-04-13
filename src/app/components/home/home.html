@@ -1,13 +1,27 @@
 <div class="album-grid" [style.--min-col-size]="colSize()">
   @for (album of albumService.filtered(); track album.id) {
-    <app-album-card [album]="album" (albumClicked)="selectedAlbum.set($event)" />
+    <app-album-card [album]="album" (albumClicked)="openAlbum($event)" />
   }
 </div>
 
 @if (selectedAlbum()) {
-  <div class="overlay" (click)="selectedAlbum.set(null)">
-    <div class="overlay-content" (click)="$event.stopPropagation()">
-      <img [src]="selectedAlbum()!.coverUrl" [alt]="selectedAlbum()!.title">
+  <div class="overlay" (click)="closeOverlay()">
+    <div class="overlay-inner" [class.details-open]="showDetails()" (click)="$event.stopPropagation()">
+
+      <div class="cover-section">
+        <img [src]="selectedAlbum()!.coverUrl" [alt]="selectedAlbum()!.title">
+      </div>
+
+      <button class="arrow-btn" (click)="showDetails.set(!showDetails())">
+        <span [class.rotated]="showDetails()">&#8250;</span>
+      </button>
+
+      <div class="details-panel" [class.visible]="showDetails()">
+        <h2>{{ selectedAlbum()!.title }}</h2>
+        <p class="artist">{{ selectedAlbum()!.artist }}</p>
+        <p class="meta">{{ selectedAlbum()!.genre }} · {{ selectedAlbum()!.year }}</p>
+      </div>
+
     </div>
   </div>
 }
