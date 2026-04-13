@@ -38,7 +38,7 @@ function colorSortKey(hex: string): number {
     // We want white (high L) to have a smaller key than black (low L)
     // so that in a list, white comes first, then grey, then black.
     // 10000 is our "offset" to push these after all chromatic colors.
-    return 10000 + (1 - l); 
+    return -(10000 + (1 - l)); 
   }
 
   // Chromatic: sort by hue (0-360)
