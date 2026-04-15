@@ -43,11 +43,21 @@
       </div>
 
       <div class="controls-right">
-        <mat-select placeholder="Display" (selectionChange)="albumService.displaySize.set($event.value)">
-          <mat-option value="large">Large</mat-option>
-          <mat-option value="medium">Medium</mat-option>
-          <mat-option value="small">Small</mat-option>
-        </mat-select>
+        <button mat-icon-button [matMenuTriggerFor]="displayMenu" aria-label="Change display size">
+          <mat-icon>grid_view</mat-icon>
+        </button>
+
+        <mat-menu #displayMenu="matMenu">
+          <button mat-menu-item (click)="albumService.displaySize.set('large')">
+            <span>Large</span>
+          </button>
+          <button mat-menu-item (click)="albumService.displaySize.set('medium')">
+            <span>Medium</span>
+          </button>
+          <button mat-menu-item (click)="albumService.displaySize.set('small')">
+            <span>Small</span>
+          </button>
+        </mat-menu>
       </div>
     </div>
   </nav>
