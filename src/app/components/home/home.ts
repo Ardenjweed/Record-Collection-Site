@@ -1,9 +1,8 @@
 import { Component, inject, computed, signal } from '@angular/core';
 import { AlbumService } from '../../services/album';
-import { SpotifyService, SpotifyAlbum } from '../../services/spotify';
+import { DiscogsService, DiscogsAlbum } from '../../services/discogs';
 import { AlbumCard } from '../album-card/album-card';
 import { Album } from '../../models/album';
-import { TRACKLIST_OVERRIDES } from '../../data/tracklists.data';
 
 @Component({
   selector: 'app-home',
@@ -14,42 +13,40 @@ import { TRACKLIST_OVERRIDES } from '../../data/tracklists.data';
 })
 export class Home {
   albumService = inject(AlbumService);
-  spotifyService = inject(SpotifyService);
+  discogsService = inject(DiscogsService);
 
   selectedAlbum = signal<Album | null>(null);
   showDetails = signal<boolean>(false);
-  spotifyData = signal<SpotifyAlbum | null>(null);
-  loadingSpotify = signal<boolean>(false);
+  discogsData = signal<DiscogsAlbum | null>(null);
+  loadingDiscogs = signal<boolean>(false);
+
+  
 
   async openAlbum(album: Album) {
     this.selectedAlbum.set(album);
     this.showDetails.set(false);
-    this.spotifyData.set(null);
+    this.discogsData.set(null);
   }
 
   async toggleDetails() {
     const show = !this.showDetails();
     this.showDetails.set(show);
 
-    if (show && !this.spotifyData()) {
+    if (show && !this.discogsData()) {
       const album = this.selectedAlbum()!;
-      const overrideKey = `${album.artist}|||${album.title}`;
-      const override = TRACKLIST_OVERRIDES[overrideKey];
 
-      if (override) {
-        this.spotifyData.set({
-          title: album.title,
-          artist: album.artist,
-          year: String(album.year),
-          totalTracks: override.tracks.length,
-          totalDuration: override.totalDuration,
-          tracks: override.tracks,
-        });
+      if (album.discogsId) {
+        this.loadingDiscogs.set(true);
+
+        const data = await this.discogsService.getAlbumDetailsById(
+          album.discogsId,
+          album.discogsType ?? 'release'
+        );
+
+        this.discogsData.set(data);
+        this.loadingDiscogs.set(false);
       } else {
-        this.loadingSpotify.set(true);
-        const data = await this.spotifyService.getAlbumDetails(album.artist, album.title);
-        this.spotifyData.set(data);
-        this.loadingSpotify.set(false);
+        this.discogsData.set(null);
       }
     }
   }
@@ -57,7 +54,7 @@ export class Home {
   closeOverlay() {
     this.selectedAlbum.set(null);
     this.showDetails.set(false);
-    this.spotifyData.set(null);
+    this.discogsData.set(null);
   }
 
   colSize = computed(() => {
@@ -65,3 +62,4 @@ export class Home {
     return sizes[this.albumService.displaySize()];
   });
 }
+
