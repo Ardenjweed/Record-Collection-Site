@@ -1,6 +1,8 @@
 import { Component, inject, computed, signal } from '@angular/core';
 import { AlbumService } from '../../services/album';
+import { AudioService } from '../../services/audio';
 import { DiscogsService, DiscogsAlbum } from '../../services/discogs';
+import { DeezerService } from '../../services/deezer';
 import { AlbumCard } from '../album-card/album-card';
 import { Album } from '../../models/album';
 
@@ -14,18 +16,22 @@ import { Album } from '../../models/album';
 export class Home {
   albumService = inject(AlbumService);
   discogsService = inject(DiscogsService);
+  audioService = inject(AudioService);
+  deezerService = inject(DeezerService);
 
   selectedAlbum = signal<Album | null>(null);
   showDetails = signal<boolean>(false);
   discogsData = signal<DiscogsAlbum | null>(null);
   loadingDiscogs = signal<boolean>(false);
-
-  
+  playingTrackKey = signal<string | null>(null);
+  trackPreviews = signal<Map<string, string | null>>(new Map());
+  loadingPreviews = signal<boolean>(false);
 
   async openAlbum(album: Album) {
     this.selectedAlbum.set(album);
     this.showDetails.set(false);
     this.discogsData.set(null);
+    this.trackPreviews.set(new Map());
   }
 
   async toggleDetails() {
@@ -37,16 +43,21 @@ export class Home {
 
       if (album.discogsId) {
         this.loadingDiscogs.set(true);
-
         const data = await this.discogsService.getAlbumDetailsById(
           album.discogsId,
           album.discogsType ?? 'release'
         );
-
         this.discogsData.set(data);
         this.loadingDiscogs.set(false);
-      } else {
-        this.discogsData.set(null);
+
+        // Pre-fetch previews after tracklist loads
+        if (data?.tracks?.length) {
+          this.loadingPreviews.set(true);
+          const artist = data.artist || album.artist;
+          const previews = await this.deezerService.prefetchAlbumPreviews(artist, data.tracks);
+          this.trackPreviews.set(previews);
+          this.loadingPreviews.set(false);
+        }
       }
     }
   }
@@ -55,11 +66,31 @@ export class Home {
     this.selectedAlbum.set(null);
     this.showDetails.set(false);
     this.discogsData.set(null);
+    this.trackPreviews.set(new Map());
   }
 
   colSize = computed(() => {
     const sizes = { large: '350px', medium: '250px', small: '150px' };
     return sizes[this.albumService.displaySize()];
   });
-}
 
+  playPreview(track: any) {
+    const artist = this.discogsData()?.artist || this.selectedAlbum()!.artist;
+    const key = `${artist}-${track.name}`;
+
+    if (this.playingTrackKey() === key && this.audioService.isPlaying()) {
+      this.audioService.pause();
+      return;
+    }
+
+    const previewUrl = this.trackPreviews().get(track.name);
+    if (!previewUrl) return;
+
+    this.playingTrackKey.set(key);
+    this.audioService.toggle(previewUrl);
+
+    this.audioService.audio.addEventListener('ended', () => {
+      this.playingTrackKey.set(null);
+    }, { once: true });
+  }
+}

@@ -1,47 +1,3 @@
-<!-- <div class="album-grid" [style.--min-col-size]="colSize()">
-  @for (album of albumService.filtered(); track album.id) {
-    <app-album-card [album]="album" (albumClicked)="openAlbum($event)" />
-  }
-</div>
-
-@if (selectedAlbum()) {
-  <div class="overlay" (click)="closeOverlay()">
-    <div class="overlay-inner" [class.details-open]="showDetails()" (click)="$event.stopPropagation()">
-
-      <div class="cover-section">
-        <img [src]="selectedAlbum()!.coverUrl" [alt]="selectedAlbum()!.title">
-      </div>
-
-      <button class="arrow-btn" (click)="toggleDetails()">
-        <span [class.rotated]="showDetails()">&#8250;</span>
-      </button>
-
-      <div class="details-panel" [class.visible]="showDetails()">
-        @if (loadingSpotify()) {
-          <p class="loading">Loading...</p>
-        } @else if (spotifyData()) {
-          <h2>{{ spotifyData()!.title }}</h2>
-          <p class="artist">{{ spotifyData()!.artist }}</p>
-          <p class="meta">{{selectedAlbum()!.genre }} · {{ spotifyData()!.totalTracks }} tracks · {{ spotifyData()!.totalDuration }}</p>
-
-          <div class="tracklist">
-            @for (track of spotifyData()!.tracks; track track.trackNumber) {
-              <div class="track">
-                <span class="track-number">{{ track.trackNumber }}</span>
-                <span class="track-name" [title]="track.name">{{ track.name }}</span>
-                <span class="track-duration">{{ track.duration }}</span>
-              </div>
-            }
-          </div>
-        } @else {
-          <p class="not-found">No Spotify data found.</p>
-        }
-      </div>
-
-    </div>
-  </div>
-} -->
-
 <div class="album-grid" [style.--min-col-size]="colSize()">
   @for (album of albumService.filtered(); track album.id) {
     <app-album-card [album]="album" (albumClicked)="openAlbum($event)" />
@@ -71,7 +27,14 @@
           <div class="tracklist">
             @for (track of discogsData()!.tracks; track track.trackNumber) {
               <div class="track">
-                <span class="track-number">{{ track.trackNumber }}</span>
+                <span class="track-number">
+                  <span class="track-number-text">{{ track.trackNumber }}</span>
+                  @if (trackPreviews().get(track.name)) {
+                    <button (click)="playPreview(track)">
+                      {{ playingTrackKey() === (discogsData()!.artist || selectedAlbum()!.artist) + '-' + track.name && audioService.isPlaying() ? '⏸' : '▶' }}
+                    </button>
+                  }
+                </span>
                 <span class="track-name" [title]="track.name">{{ track.name }}</span>
                 <span class="track-duration">{{ track.duration }}</span>
               </div>

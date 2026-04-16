@@ -24,6 +24,8 @@ nav {
 }
 
 .controls-right {
+  display: flex;
+  align-items: center;
   margin-left: auto;
   margin-right: 2em;
 }
@@ -41,4 +43,12 @@ nav {
 
 .sort-order-btn:hover {
   background-color: #858585;
+}
+
+.volume-control {
+  margin-top: 5px;
+}
+
+.volume-control input {
+  width: 100px;
 }

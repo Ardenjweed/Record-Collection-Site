@@ -11,7 +11,6 @@ export interface Album {
   compilation: boolean;
   gift: boolean;
   soundtrack: boolean;
-  spotifyArtist?: string;
   discogsId?: number;
   discogsType?: 'release' | 'master'; 
 }

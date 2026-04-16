@@ -43,6 +43,18 @@
       </div>
 
       <div class="controls-right">
+        <div class="volume-control">
+          <mat-icon>volume_up</mat-icon>
+
+          <input
+            type="range"
+            min="0"
+            max="100"
+            [value]="20"
+            (input)="setVolume($event)"
+          />
+        </div>
+
         <button mat-icon-button [matMenuTriggerFor]="displayMenu" aria-label="Change display size">
           <mat-icon>grid_view</mat-icon>
         </button>

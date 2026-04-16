@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { AlbumService } from '../../services/album';
+import { AudioService } from '../../services/audio';
 
 @Component({
   selector: 'app-header',
@@ -15,4 +16,10 @@ import { AlbumService } from '../../services/album';
 })
 export class Header {
   albumService = inject(AlbumService);
+  audioService = inject(AudioService);
+
+  setVolume(event: any) {
+    const value = event.target.value / 100;
+    this.audioService.setVolume(value);
+  }
 }
