@@ -13,14 +13,20 @@ export class DeezerService {
     if (this.cache.has(key)) return this.cache.get(key)!;
 
     try {
-      const res = await fetch(
-        `${this.baseUrl}/api/deezer/preview?artist=${encodeURIComponent(artist)}&track=${encodeURIComponent(track)}`
-      );
+      const url = `${this.baseUrl}/api/deezer/preview?artist=${encodeURIComponent(artist)}&track=${encodeURIComponent(track)}`;
+      console.log('Fetching preview URL:', url);
+
+      const res = await fetch(url);
+      console.log('Deezer response status:', res.status);
+
       const data = await res.json();
-      const url = data.preview ?? null;
-      this.cache.set(key, url);
-      return url;
-    } catch {
+      console.log('Deezer response data:', data);
+
+      const previewUrl = data.preview ?? null;
+      this.cache.set(key, previewUrl);
+      return previewUrl;
+    } catch (err) {
+      console.error('Deezer fetch error:', err);
       this.cache.set(key, null);
       return null;
     }

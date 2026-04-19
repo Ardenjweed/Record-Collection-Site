@@ -47,3 +47,4 @@ Thumbs.db
 
 #Spotify Credentials
 backend/.env
+.vercel

@@ -24,14 +24,14 @@ export class Home {
   discogsData = signal<DiscogsAlbum | null>(null);
   loadingDiscogs = signal<boolean>(false);
   playingTrackKey = signal<string | null>(null);
-  trackPreviews = signal<Map<string, string | null>>(new Map());
+  trackPreviews = signal<Record<string, string | null>>({});
   loadingPreviews = signal<boolean>(false);
 
   async openAlbum(album: Album) {
     this.selectedAlbum.set(album);
     this.showDetails.set(false);
     this.discogsData.set(null);
-    this.trackPreviews.set(new Map());
+    this.trackPreviews.set({});
   }
 
   async toggleDetails() {
@@ -50,40 +50,43 @@ export class Home {
         this.discogsData.set(data);
         this.loadingDiscogs.set(false);
 
-        // Pre-fetch previews after tracklist loads
         if (data?.tracks?.length) {
           this.loadingPreviews.set(true);
           const artist = data.artist || album.artist;
+          console.log('Fetching previews for artist:', artist);
+          console.log('Tracks:', data.tracks.map(t => t.name));
+
           const previews = await this.deezerService.prefetchAlbumPreviews(artist, data.tracks);
-          this.trackPreviews.set(previews);
+          console.log('Previews map:', Object.fromEntries(previews));
+
+          const previewsObj: Record<string, string | null> = {};
+          previews.forEach((url, name) => {
+            previewsObj[name] = url;
+          });
+
+          console.log('Preview object being set:', previewsObj);
+          this.trackPreviews.set(previewsObj);
+          console.log('trackPreviews signal after set:', this.trackPreviews());
           this.loadingPreviews.set(false);
         }
       }
     }
   }
 
-  closeOverlay() {
-    this.selectedAlbum.set(null);
-    this.showDetails.set(false);
-    this.discogsData.set(null);
-    this.trackPreviews.set(new Map());
-  }
-
-  colSize = computed(() => {
-    const sizes = { large: '350px', medium: '250px', small: '150px' };
-    return sizes[this.albumService.displaySize()];
-  });
-
   playPreview(track: any) {
     const artist = this.discogsData()?.artist || this.selectedAlbum()!.artist;
     const key = `${artist}-${track.name}`;
+    console.log('playPreview called for:', track.name);
+    console.log('trackPreviews current value:', this.trackPreviews());
+    console.log('preview URL for track:', this.trackPreviews()[track.name]);
 
     if (this.playingTrackKey() === key && this.audioService.isPlaying()) {
       this.audioService.pause();
       return;
     }
 
-    const previewUrl = this.trackPreviews().get(track.name);
+    const previewUrl = this.trackPreviews()[track.name];
+    console.log('previewUrl:', previewUrl);
     if (!previewUrl) return;
 
     this.playingTrackKey.set(key);
@@ -93,4 +96,16 @@ export class Home {
       this.playingTrackKey.set(null);
     }, { once: true });
   }
+  
+  closeOverlay() {
+    this.selectedAlbum.set(null);
+    this.showDetails.set(false);
+    this.discogsData.set(null);
+    this.trackPreviews.set({});
+  }
+
+  colSize = computed(() => {
+    const sizes = { large: '350px', medium: '250px', small: '150px' };
+    return sizes[this.albumService.displaySize()];
+  });
 }

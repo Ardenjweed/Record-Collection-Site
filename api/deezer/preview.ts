@@ -1,9 +1,7 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+module.exports = async function handler(req: any, res: any) {
   try {
-    const artist = req.query.artist as string;
-    const track = req.query.track as string;
+    const artist = req.query['artist'] as string;
+    const track = req.query['track'] as string;
 
     if (!artist || !track) {
       return res.status(400).json({ error: 'artist and track are required' });

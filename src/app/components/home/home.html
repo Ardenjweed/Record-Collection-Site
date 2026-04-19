@@ -29,7 +29,7 @@
               <div class="track" [attr.playing]="playingTrackKey() === (discogsData()!.artist || selectedAlbum()!.artist) + '-' + track.name && audioService.isPlaying() ? '' : null">
                 <span class="track-number">
                   <span class="track-number-text">{{ track.trackNumber }}</span>
-                  @if (trackPreviews().get(track.name)) {
+                  @if (trackPreviews()[track.name]) {
                     <button (click)="playPreview(track)">
                       {{ playingTrackKey() === (discogsData()!.artist || selectedAlbum()!.artist) + '-' + track.name && audioService.isPlaying() ? '⏸' : '▶' }}
                     </button>
