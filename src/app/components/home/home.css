@@ -161,6 +161,8 @@
 .track:hover .track-number-text { visibility: hidden; }
 .track button { opacity: 0; }
 .track:hover button { opacity: 1; }
+.track[playing] button { opacity: 1; }
+.track[playing] .track-number-text { visibility: hidden; }
 
 .loading, .not-found {
   color: #666;

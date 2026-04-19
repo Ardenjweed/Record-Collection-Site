@@ -26,7 +26,7 @@
 
           <div class="tracklist">
             @for (track of discogsData()!.tracks; track track.trackNumber) {
-              <div class="track">
+              <div class="track" [attr.playing]="playingTrackKey() === (discogsData()!.artist || selectedAlbum()!.artist) + '-' + track.name && audioService.isPlaying() ? '' : null">
                 <span class="track-number">
                   <span class="track-number-text">{{ track.trackNumber }}</span>
                   @if (trackPreviews().get(track.name)) {
