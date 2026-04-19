@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({ providedIn: 'root' })
 export class DeezerService {
   private cache = new Map<string, string | null>();
+  private baseUrl = environment.apiBaseUrl;
+
 
   async getPreviewUrl(artist: string, track: string): Promise<string | null> {
     const key = `${artist}-${track}`;
@@ -10,7 +14,7 @@ export class DeezerService {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/api/deezer/preview?artist=${encodeURIComponent(artist)}&track=${encodeURIComponent(track)}`
+        `${this.baseUrl}/api/deezer/preview?artist=${encodeURIComponent(artist)}&track=${encodeURIComponent(track)}`
       );
       const data = await res.json();
       const url = data.preview ?? null;

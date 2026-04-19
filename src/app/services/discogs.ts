@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment';
+
 
 export interface DiscogsTrack {
   trackNumber: number;
@@ -19,7 +21,7 @@ export interface DiscogsAlbum {
 
 @Injectable({ providedIn: 'root' })
 export class DiscogsService {
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) {}
 
