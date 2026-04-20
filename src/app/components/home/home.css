@@ -127,6 +127,15 @@
   overflow-y: auto;
   margin-top: 8px;
   padding-right: 12px;
+  white-space: nowrap;
+}
+
+.track-name {
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0; 
 }
 
 .track {
