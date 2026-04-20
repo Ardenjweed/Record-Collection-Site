@@ -3,6 +3,8 @@ header {
   padding-block: 8px;
   background-color: #525252;
   color: white;
+  position: relative;
+  z-index: 100;
 }
 
 nav {
@@ -11,7 +13,14 @@ nav {
   gap: 16px;
 }
 
-.controls {
+h1 {
+  margin: 0;
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+/* Desktop */
+.desktop-controls {
   display: flex;
   align-items: center;
   flex: 1;
@@ -46,10 +55,141 @@ nav {
 }
 
 .volume-control {
-  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-right: 1em;
 }
 
 .volume-control input {
   width: 100px;
+}
+
+/* Mobile */
+.mobile-controls {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.hamburger-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+/* Sidebar */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  background-color: #2b2b2b;
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #444;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  color: white;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-label {
+  color: #aaa;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sidebar-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-section mat-select {
+  width: 100%;
+}
+
+.sidebar-section .sort-order-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.sidebar-section .volume-control {
+  margin-right: 0;
+}
+
+.sidebar-section .volume-control input {
+  flex: 1;
+  width: auto;
+}
+
+.mat-mdc-select-panel {
+  min-width: fit-content !important;
+}
+
+@media (max-width: 768px) {
+  .desktop-controls {
+    display: none;
+  }
+
+  .mobile-controls {
+    display: flex;
+  }
 }
