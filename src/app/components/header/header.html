@@ -2,7 +2,8 @@
   <nav>
     <h1>My Record Collection</h1>
 
-    <div class="controls">
+    <!-- Desktop controls -->
+    <div class="controls desktop-controls">
       <div class="controls-left">
         <mat-select placeholder="Sort by" (selectionChange)="albumService.sortField.set($event.value)">
           <mat-option value="title">Title</mat-option>
@@ -45,14 +46,7 @@
       <div class="controls-right">
         <div class="volume-control">
           <mat-icon>volume_up</mat-icon>
-
-          <input
-            type="range"
-            min="0"
-            max="100"
-            [value]="20"
-            (input)="setVolume($event)"
-          />
+          <input type="range" min="0" max="100" [value]="20" (input)="setVolume($event)" />
         </div>
 
         <button mat-icon-button [matMenuTriggerFor]="displayMenu" aria-label="Change display size">
@@ -60,17 +54,101 @@
         </button>
 
         <mat-menu #displayMenu="matMenu">
-          <button mat-menu-item (click)="albumService.displaySize.set('large')">
-            <span>Large</span>
-          </button>
-          <button mat-menu-item (click)="albumService.displaySize.set('medium')">
-            <span>Medium</span>
-          </button>
-          <button mat-menu-item (click)="albumService.displaySize.set('small')">
-            <span>Small</span>
-          </button>
+          <button mat-menu-item (click)="albumService.displaySize.set('large')">Large</button>
+          <button mat-menu-item (click)="albumService.displaySize.set('medium')">Medium</button>
+          <button mat-menu-item (click)="albumService.displaySize.set('small')">Small</button>
         </mat-menu>
       </div>
     </div>
+
+    <!-- Mobile hamburger -->
+    <div class="mobile-controls">
+      <button mat-icon-button [matMenuTriggerFor]="displayMenu" aria-label="Change display size">
+        <mat-icon>grid_view</mat-icon>
+      </button>
+
+      <mat-menu #displayMenu="matMenu">
+        <button mat-menu-item (click)="albumService.displaySize.set('large')">Large</button>
+        <button mat-menu-item (click)="albumService.displaySize.set('medium')">Medium</button>
+        <button mat-menu-item (click)="albumService.displaySize.set('small')">Small</button>
+      </mat-menu>
+
+      <button class="hamburger-btn" (click)="toggleSidebar()" aria-label="Open menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
   </nav>
 </header>
+
+<!-- Sidebar overlay -->
+@if (sidebarOpen()) {
+  <div class="sidebar-backdrop" (click)="closeSidebar()"></div>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h2>Filters</h2>
+      <button class="close-btn" (click)="closeSidebar()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="sidebar-content">
+      <div class="sidebar-section">
+        <label class="sidebar-label">Sort by</label>
+        <mat-select placeholder="Sort by" (selectionChange)="albumService.sortField.set($event.value)">
+          <mat-option value="title">Title</mat-option>
+          <mat-option value="artist">Artist</mat-option>
+          <mat-option value="year">Date</mat-option>
+          <mat-option value="genre">Genre</mat-option>
+          <mat-option value="color">Color</mat-option>
+        </mat-select>
+      </div>
+
+      <div class="sidebar-section">
+        <label class="sidebar-label">Order</label>
+        <button class="sort-order-btn" (click)="albumService.sortOrder.set(albumService.sortOrder() === 'desc' ? 'asc' : 'desc')">
+          {{ albumService.sortOrder() === 'desc' ? 'Descending' : 'Ascending' }}
+        </button>
+      </div>
+
+      <div class="sidebar-section">
+        <label class="sidebar-label">Filter by genre</label>
+        <mat-select placeholder="All genres" (selectionChange)="albumService.filterGenre.set($event.value)">
+          <mat-option value="">All</mat-option>
+          @for (g of albumService.genres; track g) {
+            <mat-option [value]="g">{{ g }}</mat-option>
+          }
+        </mat-select>
+      </div>
+
+      <div class="sidebar-section">
+        <label class="sidebar-label">Show</label>
+        <div class="sidebar-checkboxes">
+          <mat-checkbox
+            [checked]="albumService.showCompilations()"
+            (change)="albumService.showCompilations.set($event.checked)">
+            Compilations
+          </mat-checkbox>
+          <mat-checkbox
+            [checked]="albumService.showGifted()"
+            (change)="albumService.showGifted.set($event.checked)">
+            Gifted
+          </mat-checkbox>
+          <mat-checkbox
+            [checked]="albumService.showSoundtracks()"
+            (change)="albumService.showSoundtracks.set($event.checked)">
+            Soundtracks
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <label class="sidebar-label">Volume</label>
+        <div class="volume-control">
+          <mat-icon>volume_up</mat-icon>
+          <input type="range" min="0" max="100" [value]="20" (input)="setVolume($event)" />
+        </div>
+      </div>
+    </div>
+  </div>
+}
