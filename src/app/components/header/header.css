@@ -171,15 +171,6 @@ h1 {
   font-size: 16px;
 }
 
-.sidebar-section .volume-control {
-  margin-right: 0;
-}
-
-.sidebar-section .volume-control input {
-  flex: 1;
-  width: auto;
-}
-
 .mat-mdc-select-panel {
   min-width: fit-content !important;
 }

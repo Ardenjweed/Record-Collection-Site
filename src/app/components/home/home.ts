@@ -69,11 +69,6 @@ export class Home {
     this.trackPreviews.set(new Map());
   }
 
-  colSize = computed(() => {
-    const sizes = { large: '350px', medium: '250px', small: '150px' };
-    return sizes[this.albumService.displaySize()];
-  });
-
   playPreview(track: any) {
     const artist = this.discogsData()?.artist || this.selectedAlbum()!.artist;
     const key = `${artist}-${track.name}`;
@@ -93,4 +88,16 @@ export class Home {
       this.playingTrackKey.set(null);
     }, { once: true });
   }
+
+  colSize = computed(() => {
+    const size = this.albumService.displaySize();
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      return size === 'small' ? 'calc(50% - 8px)' : '90vw';
+    }
+
+    const sizes = { large: '350px', medium: '250px', small: '150px' };
+    return sizes[size];
+  });
 }
