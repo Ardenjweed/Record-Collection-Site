@@ -1,9 +1,28 @@
+/* .album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--min-col-size, 350px), var(--min-col-size, 350px)));
+  gap: 90px;
+  padding: 16px;
+  justify-content: center;
+} */
+
 .album-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--min-col-size, 350px), var(--min-col-size, 350px)));
   gap: 90px;
   padding: 16px;
   justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .album-grid {
+    gap: 90px;
+  }
+
+  .album-grid.two-col {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 45px;
+  }
 }
 
 .overlay {
