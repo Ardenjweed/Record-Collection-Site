@@ -63,13 +63,12 @@
 
     <!-- Mobile hamburger -->
     <div class="mobile-controls">
-      <button mat-icon-button [matMenuTriggerFor]="displayMenu" aria-label="Change display size">
+      <button mat-icon-button [matMenuTriggerFor]="mobileDisplayMenu" aria-label="Change display size">
         <mat-icon>grid_view</mat-icon>
       </button>
 
-      <mat-menu #displayMenu="matMenu">
+      <mat-menu #mobileDisplayMenu="matMenu">
         <button mat-menu-item (click)="albumService.displaySize.set('large')">Large</button>
-        <button mat-menu-item (click)="albumService.displaySize.set('medium')">Medium</button>
         <button mat-menu-item (click)="albumService.displaySize.set('small')">Small</button>
       </mat-menu>
 
@@ -139,14 +138,6 @@
             (change)="albumService.showSoundtracks.set($event.checked)">
             Soundtracks
           </mat-checkbox>
-        </div>
-      </div>
-
-      <div class="sidebar-section">
-        <label class="sidebar-label">Volume</label>
-        <div class="volume-control">
-          <mat-icon>volume_up</mat-icon>
-          <input type="range" min="0" max="100" [value]="20" (input)="setVolume($event)" />
         </div>
       </div>
     </div>

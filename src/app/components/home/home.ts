@@ -105,7 +105,14 @@ export class Home {
   }
 
   colSize = computed(() => {
+    const size = this.albumService.displaySize();
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      return size === 'small' ? 'calc(50% - 8px)' : '90vw';
+    }
+
     const sizes = { large: '350px', medium: '250px', small: '150px' };
-    return sizes[this.albumService.displaySize()];
+    return sizes[size];
   });
 }
